@@ -30,5 +30,4 @@ latest_posts:
 ---
 
 I am a researcher working at the intersection of **mathematical modeling**, **computer vision** and **Earth observation**.
-My interests include multi- and hyperspectral imaging
-and representation learning.
+My interests include multispectral and hyperspectral imaging, as well as representation learning.
