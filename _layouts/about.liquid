@@ -1,0 +1,143 @@
+---
+layout: default
+---
+<div class="post">
+  {% comment %}
+    Local addition (not in al_folio_core): optional banner image above the name.
+    Set `banner:` (path under assets/img/) in _pages/about.md; remove it to hide the banner.
+    Full window width. Mobile (<768px) shows the whole image. Wider screens show a strip
+    `banner_height:` tall (CSS length, default 220px) below the menu; the vertical part of
+    `banner_position:` picks which part (0% = top, 100% = bottom). The bottom of the image is cut,
+    but the top is not: the part above the strip sits hidden behind the menu and shows when
+    the page bounces at the top (trackpad / phone overscroll).
+  {% endcomment %}
+  {% if page.banner %}
+    {% assign banner_y = page.banner_position | default: '50% 50%' | split: ' ' | last | remove: '%' | times: 0.01 %}
+    <div class="about-banner" style="--banner-height: {{ page.banner_height | default: '220px' }}; --banner-y: {{ banner_y }};">
+      <img src="{{ page.banner | prepend: 'assets/img/' | relative_url }}" alt="{{ page.banner_alt | default: 'banner' }}">
+    </div>
+    <style>
+      /* full-bleed: break out of the centered content column to the full window width */
+      html,
+      body {
+        overflow-x: clip; /* clip (not hidden) so the top of the image above the page is not cut off */
+      }
+      .about-banner {
+        position: relative;
+        left: 50%;
+        width: 100vw;
+        margin: -3rem 0 1.5rem -50vw; /* -3rem cancels the page's top margin, so the image touches the menu's bottom line */
+      }
+      /* mobile: whole image, no crop */
+      .about-banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      /* desktop/tablet: strip of --banner-height; cut at the bottom only, the top stays (hidden behind the menu) */
+      @media (min-width: 768px) {
+        .about-banner {
+          height: var(--banner-height);
+          clip-path: inset(-100vh 0 0 0);
+        }
+        .about-banner img {
+          /* shift up by banner-y × (image height − strip height), like object-position */
+          transform: translateY(calc(var(--banner-y) * (var(--banner-height) - 100%)));
+        }
+      }
+    </style>
+  {% endif %}
+  {% comment %} Local addition: smaller social icons at the bottom (theme default: 4rem / 3.2rem). {% endcomment %}
+  <style>
+    .social .contact-icons {
+      font-size: 2rem;
+    }
+    .social .contact-icons img {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+    /* Local addition: justified bio text (hyphens avoids big gaps between words) */
+    .profile ~ .clearfix p {
+      text-align: justify;
+    }
+  </style>
+  <header class="post-header">
+    <h1 class="post-title">
+      {% if site.title == 'blank' %}
+        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+        {{ site.last_name }}
+      {% else %}
+        {{ site.title }}
+      {% endif %}
+    </h1>
+    <p class="desc">{{ page.subtitle }}</p>
+  </header>
+
+  <article>
+    {% if page.profile %}
+      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
+        {% if page.profile.image %}
+          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+          {% if page.profile.image_circular %}
+            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+          {% else %}
+            {% assign profile_image_class = 'img-fluid z-depth-1
+      rounded' %}
+          {% endif %}
+          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
+      30vw, 95vw"{% endcapture %}
+          {%
+            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            cache_bust=true
+          %}
+        {% endif %}
+        {% if page.profile.more_info %}
+          <div class="more-info">{{ page.profile.more_info }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="clearfix">{{ content }}</div>
+
+    <!-- News -->
+    {% if page.announcements and page.announcements.enabled %}
+      <h2>
+        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
+      </h2>
+      {% include news.liquid limit=true %}
+    {% endif %}
+
+    <!-- Latest posts -->
+    {% if page.latest_posts and page.latest_posts.enabled %}
+      <h2>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+      </h2>
+      {% include latest_posts.liquid %}
+    {% endif %}
+
+    <!-- Selected papers -->
+    {% if page.selected_papers %}
+      <h2>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+      </h2>
+      {% include selected_papers.liquid %}
+    {% endif %}
+
+    <!-- Social -->
+    {% if page.social %}
+      <div class="social">
+        <div class="contact-icons">{% social_links %}</div>
+
+        <div class="contact-note">{{ site.contact_note }}</div>
+      </div>
+    {% endif %}
+
+    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+      {% if site.plugins contains 'al_newsletter' %}
+        {% include plugins/al_newsletter_form_center_margin.liquid %}
+      {% else %}
+        {% include newsletter.liquid center=true %}
+      {% endif %}
+    {% endif %}
+  </article>
+</div>

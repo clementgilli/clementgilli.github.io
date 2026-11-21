@@ -1,0 +1,80 @@
+# Only what is needed to build and deploy the site is pushed.
+# Everything below stays on your computer (nothing is deleted), it is just not sent to GitHub.
+# To push one of these again, delete its line here.
+
+# --- build output, caches, local tools -----------------------------------------------------------
+_site
+.bundle
+vendor
+node_modules/
+.jekyll-cache
+.jekyll-metadata
+.sass-cache
+.tweet-cache
+.ruby-version
+.venv
+__pycache__/
+*.pyc
+.idea
+.DS_Store
+*.bak
+assets/libs/
+output/
+test-results/
+al-folio-upgrade-report.md
+
+# --- al-folio template tooling (docs, tests, agent files, docker, dev configs) -------------------
+AGENTS.md
+CLAUDE.md
+.agents/
+.claude/
+.codex/
+.gemini/
+.devcontainer/
+docs/
+test/
+bin/
+lighthouse_results/
+readme_preview/
+Dockerfile
+docker-compose.yml
+docker-compose-slim.yml
+.dockerignore
+.all-contributorsrc
+.git-blame-ignore-revs
+.gitattributes
+.lycheeignore
+.pre-commit-config.yaml
+.prettierignore
+.prettierrc
+.al-folio-overrides.yml
+package.json
+package-lock.json
+requirements.txt
+README.md
+assets/rendercv/
+
+# --- GitHub: keep only the deploy workflow ----------------------------------------------------------
+.github/*
+!.github/workflows/
+.github/workflows/*
+!.github/workflows/deploy.yml
+
+# --- content that is not built right now (hidden / disabled) ---------------------------------------
+# blog (disabled in _config.yml)
+_pages/blog.md
+_posts/
+assets/img/blog/
+assets/bibliography/
+# publications (hidden until the first paper is public)
+_pages/publications.md
+_bibliography/examples.bib
+assets/img/publication_preview/example_pub_*.png
+# hidden placeholder news / projects (published: false)
+_news/2026-03-10-paper-accepted.md
+_news/2026-06-18-workshop-talk.md
+_projects/2_project.md
+
+# --- private: unpublished paper (never push before it is public) ----------------------------------
+_bibliography/unpublished.bib
+assets/img/publication_preview/cross_sensor_adapt.jpg
