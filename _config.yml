@@ -8,8 +8,8 @@ middle_name:
 last_name: Gilli
 contact_note: >
   Feel free to contact me
-description: > # short site description used for SEO / link previews
-  Personal website of Clément Gilli — AI, computer vision and remote sensing.
+description: >- # short site description used for SEO / link previews
+  Personal website of Clément Gilli: applied mathematics, computer vision and Earth observation.
 footer_text:
 keywords: computer vision, remote sensing, machine learning, earth observation
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
@@ -107,9 +107,9 @@ max_width: 930px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
+serve_schema_org: true # Include Schema.org in the HTML head
+og_image: /assets/img/og-preview.jpg # 1200x630 card (banner + logo + name); The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -126,8 +126,8 @@ analytics:
 enable_simple_analytics: false # Simple Analytics identifies a site by its domain, so it has no ID to set above
 
 # For Google Search Console, see https://support.google.com/webmasters/answer/9008080?hl=en#meta_tag_verification&zippy=%2Chtml-tag
-google_site_verification: # your google-site-verification ID (Google Search Console)
-bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
+google_site_verification: _3_3RW6aZ2cL4RF7LUt8USbgO0DX7wmaG3-3lI6JLmY # your google-site-verification ID (Google Search Console)
+bing_site_verification: BE06FCA54387E1BE79A3C03C9F90D45F # out your bing-site-verification ID (Bing Webmaster)
 
 # -----------------------------------------------------------------------------
 # Blog
@@ -460,8 +460,8 @@ lazy_loading_images: true # enables lazy loading of images (recommended)
 # Optional Features
 # -----------------------------------------------------------------------------
 
-enable_google_verification: false # enables google site verification
-enable_bing_verification: false # enables bing site verification
+enable_google_verification: true # enables google site verification
+enable_bing_verification: true # enables bing site verification
 enable_cookie_consent: false # enables GDPR-compliant cookie consent dialog (https://github.com/orestbida/cookieconsent)
 enable_masonry: true # enables automatic project cards arrangement
 enable_math: true # enables math typesetting (uses MathJax)
